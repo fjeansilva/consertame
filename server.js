@@ -1,10 +1,10 @@
-var express = require('express');
+process.env.NODE_ENV = process.env.NODE_ENV || 'development'; 
+
+var express = require('./config/express');
 var app = express();
 
-app.get('/', function(req, res){
-	res.send("<h1>Welcome to the Conserta.me</h1>");
-});
-
 app.listen(3000);
+
+module.exports = app;
 
 console.log('Server running at port 3000');
