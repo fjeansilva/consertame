@@ -27,7 +27,7 @@ var config 			= require('./config'),
  * - Call express function and send to app var
  * - Config the modules
  * - Set view engine
- * - Register an index route in app
+ * - Register routes in app
  *
  * @return { express application }
  */
@@ -61,6 +61,7 @@ module.exports = function() {
 	app.set('view engine', 'ejs')
 
 	require('./../app/routes/index.server.routes')(app);
+	require('./../app/routes/users.server.routes')(app);
 
 	return app;
 
