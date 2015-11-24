@@ -285,6 +285,55 @@ exports.list = function(req, res, next) {
     res.redirect('/');
  };
 
+
+/**
+ *
+ */
+
+ exports.saveOAuthUserProfile = function(req, profile, done) {
+
+    User.findOne({
+      provider: profile.provider,
+      providerId: profile.providerId
+    }, function(err, user){
+
+        if (err) {
+          return done(err);
+        } else {
+
+          if (!user) {
+            var possibleUserName = profile.username || ((profile.email) ? profile.email.split('@')[0] : '');
+
+            User.findUniqueUsername(possibleUserName, null, function(availableUsername){
+
+                profile.username = availableUsername;
+
+                var splitName = profile.fullName.split(' ');
+                profile.firstName = splitName[0] || '';
+                profile.lastName = splitName[1] || '';
+
+                user = new User(profile);
+
+                user.save(function(err){
+
+                  if (err) {
+                    var message = _this.getErrorMessage(err);
+
+                    req.flash('error', message);
+                    return res.redirect('/signup');
+                  }
+
+                  return done(err, user);
+
+                });
+            });
+          } else {
+            return done(err, user);
+          }
+        }
+    });
+ };
+
    
 
 

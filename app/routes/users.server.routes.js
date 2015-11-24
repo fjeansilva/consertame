@@ -24,4 +24,13 @@ var users = require('../../app/controllers/users.server.controller'),
  	   }));
 
  	app.get('/signout', users.signout);
+
+ 	app.get('/oauth/facebook', passport.authenticate('facebook', {
+ 		failureRedirect: '/signin'
+ 	}));
+
+ 	app.get('/oauth/facebook/callback', passport.authenticate('facebook', {
+ 		failureRedirect: '/signin',
+ 		successRedirect: '/'
+ 	}));
  };
