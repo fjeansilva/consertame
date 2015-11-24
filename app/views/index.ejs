@@ -4,6 +4,14 @@
 		<title>Conserta.me - O seu mecânico de bolso.</title>
 	</head>
 	<body>
+		<% if (userFullName) { %>
+			<h2>Hello <%= userFullName %></h2>
+			<a href="/signout">Sign out</a>
+		<% } else { %>
+			<a href="/signup">Signup</a>
+			<a href="/signin">Signin</a>
+		<% } %>
+
 		<h1><%= title %></h1>
 		<img src="img/hand.png"/>
 	</body>

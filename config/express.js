@@ -10,6 +10,8 @@
  * 	- body-parser: body-parsing middleware used to parser the request body
  * 	- method-override: middleware that provides HTTP PUT or DELETE verb
  * 	- express-session: middleware to keep track of user
+ *  - connect-flash: middleware that allow store message temporary in session
+ *  - passport: middleware to authentication request
  */
 
 var config 			= require('./config'),
@@ -18,7 +20,9 @@ var config 			= require('./config'),
 	compression 	= require('compression'),
 	bodyParser 		= require('body-parser'),
 	methodOverride 	= require('method-override'),
-	session			= require('express-session');
+	session			= require('express-session'),
+	flash			= require('connect-flash'),
+	passport 		= require('passport');
 
 
 /**
@@ -58,7 +62,11 @@ module.exports = function() {
 	app.use(express.static('./public'));
 
 	app.set('views', './app/views');
-	app.set('view engine', 'ejs')
+	app.set('view engine', 'ejs');
+
+	app.use(flash());
+	app.use(passport.initialize());
+	app.use(passport.session());
 
 	require('./../app/routes/index.server.routes')(app);
 	require('./../app/routes/users.server.routes')(app);
