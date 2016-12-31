@@ -9,11 +9,11 @@
  */
 
 module.exports = {
-	db: 'mongodb://localhost/biggaragedb',
-	sessionSecret: 'developmentSesionSecret',
+	db: process.env.DB,
+	sessionSecret: process.env.SESSIONSECRET,
 	facebook: {
-		clientID: '531801306974830',
-		clientSecret: '695e37979ab138bf9f58ce445584d3a9',
-		callbackURL: 'http://localhost:3000/oauth/facebook/callback'
+		clientID: process.env.CLIENTID,
+		clientSecret: process.env.CLIENTSECRET,
+		callbackURL: process.env.CALLBACKURL
 	}
 };
